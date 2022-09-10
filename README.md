@@ -13,14 +13,14 @@
 
    - [x] create a settings popup, which contains all the necessary input elements
    - [x] users can set a custom daily wordcount goal. it's represented as a text first ('100 words written out of 500')
-   - [ ] if user meets goal, the 'streak count' is updated and shown on ui! ('your streak is 1!')
-   - [ ] streakcount and daily wordcount are also stored in localstorage.
+   - [x] wordcount and goal are also stored in localstorage.
    - [ ] settings are saved too
 
-3. MAKING IT LOOK GOOD!
+3. STREAKS
 
-   - [ ] create a mockup in figma
-   - [ ] implement the css to match the design
+   - [ ] if user meets goal, the 'streak count' is updated and shown on ui! ('your streak is 1!')
+   - [ ] streak can only increment once a day. this can be done by storing a separate variable in localStorage, that stores the date the streak was last recorded. if today's date != the streak date, the streak increases.
+   - [ ] streak is lost if it's been two days since the value was updated.
 
 4. MVP is complete at this point! here are extra features:
    - [ ] user can select between preset themes
@@ -59,3 +59,9 @@
 - i'm not much of a writer; so researching what actually motivates writers would be necessary.
 - even so, thinking about what would motivate me, someone VERY intimidated by writing, can still be a driving force.
 - accessibility > style. they also don't have to be mutually exclusive. think about fonts that are readable for people with dyslexia, and a large default font-size.
+
+## helpful links
+
+for streak:
+https://stackoverflow.com/questions/68281501/how-to-reset-a-variable-to-0-every-24-hours-in-javascript
+https://codepen.io/krisgrove/pen/prPdov

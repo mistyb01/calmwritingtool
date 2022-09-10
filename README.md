@@ -65,3 +65,6 @@
 for streak:
 https://stackoverflow.com/questions/68281501/how-to-reset-a-variable-to-0-every-24-hours-in-javascript
 https://codepen.io/krisgrove/pen/prPdov
+
+palette:
+https://lospec.com/palette-list/slso8

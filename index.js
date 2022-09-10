@@ -10,8 +10,8 @@ const savedText = localStorage.getItem('savedText') || '';
 const savedWordCount = localStorage.getItem('savedWordCount') || 0;
 
 let savedGoal = parseInt(localStorage.getItem('savedGoal')) || 0;
-let streakCount = parseInt(localStorage.getItem('streak')) || 0;
-//const { value, date } = JSON.parse(localStorage.getValue('streak'));
+let prevStreakData = JSON.parse(localStorage.getItem('streak')) || '';
+let streakCount = prevStreakData.count || 0;
 
 const dailyGoalInput = document.querySelector('#dailygoal');
 dailyGoalInput.addEventListener('change', updateDailyGoal);
@@ -69,12 +69,13 @@ function updateWordCount(e) {
     localStorage.setItem('savedWordCount', wordCount);
 
     if (wordCount >= savedGoal) {
-        
-            streakCount++; 
-            localStorage.setItem('streak', JSON.stringify({ date: new Date(), streak: streakCount}))
-            //localStorage.setItem('streak', streakCount);
-            //localStorage.setItem('streakDate', new Date());
-        
+        //let prevStreakObject = JSON.parse(localStorage.get('streak'));
+        streakCount++; 
+        let newStreakObject = {
+            count: streakCount,
+            date: new Date()
+        }
+        localStorage.setItem('streak', JSON.stringify(newStreakObject));
 
         if (!soundOption.checked) return;
         if (!playedOnce) {

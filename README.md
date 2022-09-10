@@ -12,9 +12,10 @@
 2. BASIC GOAL SETTING FOR USERS
 
    - [x] create a settings popup, which contains all the necessary input elements
-   - [ ] users can set a custom daily wordcount goal. it's represented as a text first ('100 words written out of 500')
+   - [x] users can set a custom daily wordcount goal. it's represented as a text first ('100 words written out of 500')
    - [ ] if user meets goal, the 'streak count' is updated and shown on ui! ('your streak is 1!')
    - [ ] streakcount and daily wordcount are also stored in localstorage.
+   - [ ] settings are saved too
 
 3. MAKING IT LOOK GOOD!
 
@@ -27,7 +28,7 @@
    - [ ] fullscreen option
    - [ ] user can export their writing as a .txt, or another format
    - [ ] stats tab with data like: total words written, max streak, average words per day, average time it takes to reach goal
-   - [ ] fun little sound things (option to add typing ticks), ambient noise selection
+   - [x] typing ticks
    - [ ] prompts?? (though thats a whole other thing..)
    - [ ] 'challenge modes'? like, set a timer and see how many words you can write! modes to help people get started.
    - [ ] option for goal to be time spent writing if not wordcount?

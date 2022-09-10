@@ -69,13 +69,18 @@ function updateWordCount(e) {
     localStorage.setItem('savedWordCount', wordCount);
 
     if (wordCount >= savedGoal) {
-        //let prevStreakObject = JSON.parse(localStorage.get('streak'));
-        streakCount++; 
-        let newStreakObject = {
-            count: streakCount,
-            date: new Date()
+        // only increase streak if the saved date was yesterday!
+        let today = new Date();
+        let prevStreakObject = JSON.parse(localStorage.getItem('streak'));
+        if (!prevStreakObject || prevStreakObject.date + 1 === today) {
+            console.log("streak increased!")
+            streakCount++; 
+            let newStreakObject = {
+                count: streakCount,
+                date: new Date()
+            }
+            localStorage.setItem('streak', JSON.stringify(newStreakObject));
         }
-        localStorage.setItem('streak', JSON.stringify(newStreakObject));
 
         if (!soundOption.checked) return;
         if (!playedOnce) {

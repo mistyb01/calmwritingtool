@@ -34,7 +34,10 @@ body {
 }
 
 .counter-wrapper {
+    position: fixed;
     color: #544e68;
+    background-color: #0d2b45;
+    width: 100%;
     font-size: 1.25rem;
 }
 

@@ -7,6 +7,8 @@ const savedWordCount = localStorage.getItem('savedWordCount') || 0;
 textEditor.innerText = savedText; 
 wordCountDiv.innerText = savedWordCount + " words";
 
+let showSettings = false;
+
 
 function getWordCount(string) {
     //let array = string.trim().split(" ");
@@ -33,6 +35,14 @@ function saveText(e) {
     localStorage.setItem('savedText', text);
 }
 
+const settingsBtn = document.querySelector('#settingsBtn');
+settingsBtn.addEventListener('click', toggleSettings);
+
+function toggleSettings() {
+    const settingsDiv = document.querySelector('.settings');
+    showSettings = !showSettings;
+    showSettings ? settingsDiv.style.display = 'block' : settingsDiv.style.display = 'none'; 
+}
 
 textEditor.addEventListener('input', updateWordCount);
 textEditor.addEventListener('input', saveText);

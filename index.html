@@ -12,6 +12,22 @@
         <div class="wordcount">0 words</div>
         <div class="text" contenteditable="true"></div>
     </div>
+
+    <div class="settings-wrapper">
+        <button id="settingsBtn">⚙ settings</button>
+        <div class="settings">
+            <form>
+                <label for="dailygoal">Daily goal:</label>
+                <input type="number" id="dailygoal" name="dailygoal">words
+                <br/>
+                <input type="checkbox" id="showCount" name="showCount" checked="true">
+                <label for="showCount">Show word count</label>
+                <br/>
+                <input type="checkbox" id="typingSound" name="typingSound" value="typingSound">
+                <label for="typingSound">Typing sound</label>
+            </form>
+        </div>
+    </div>
     <script src="index.js"></script>
 </body>
 </html>

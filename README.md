@@ -11,7 +11,7 @@
 
 2. BASIC GOAL SETTING FOR USERS
 
-   - [ ] create a settings popup, which contains all the necessary input elements
+   - [x] create a settings popup, which contains all the necessary input elements
    - [ ] users can set a custom daily wordcount goal. it's represented as a text first ('100 words written out of 500')
    - [ ] if user meets goal, the 'streak count' is updated and shown on ui! ('your streak is 1!')
    - [ ] streakcount and daily wordcount are also stored in localstorage.

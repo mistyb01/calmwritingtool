@@ -1,3 +1,4 @@
+
 //// query selectors 
 const textEditor = document.querySelector('.text');
 textEditor.addEventListener('input', updateWordCount);
@@ -12,6 +13,7 @@ const savedWordCount = localStorage.getItem('savedWordCount') || 0;
 let savedGoal = parseInt(localStorage.getItem('savedGoal')) || 0;
 let prevStreakData = JSON.parse(localStorage.getItem('streak')) || '';
 let streakCount = prevStreakData.count || 0;
+let totalWordCount = parseInt(localStorage.getItem('totalWordCount')) || 0;
 
 const dailyGoalInput = document.querySelector('#dailygoal');
 dailyGoalInput.addEventListener('change', updateDailyGoal);
@@ -26,6 +28,7 @@ showWordCountOption.addEventListener('change', toggleWordCount);
 const counterWrapper = document.querySelector('.counter-wrapper');
 
 const dailyGoalText = document.querySelector('.dailygoaltext');
+//const totalWordCountText = document.querySelector('.totalWords');
 
 let showSettings = false;
 let playedOnce = false; // tracks if fanfare played before.
@@ -40,19 +43,31 @@ if (localStorage.getItem('savedGoal')) {
 
 updateStreak();
 
-//// functions!
 
-// function checkIfTwoDaysPasswd(someDate) {
-//     const today = new Date();
-
-//     const 
-//     return someDate.getDate() == today.getDate() &&
-//     someDate.getMonth() == today.getMonth() &&
-//     someDate.getFullYear() == today.getFullYear()
-// }
+//// saving stuff with the file system api
 
 
+document.querySelector('#saveBtn').onclick = async () => {
+    const options = {
+        types: [
+          {
+            description: "Text Document",
+            accept: {
+              "text/plain": [".txt"],
+            },
+          },
+        ],
+      };
+      
+    
+    let fileHandle = await window.showSaveFilePicker(options);
+    let stream = await fileHandle.createWritable();
+    await stream.write(textEditor.innerText);
+    await stream.close();
+}
 
+
+//// functions
 function getWordCount(string) {
     //let array = string.trim().split(" ");
     let word_count = string.trim().split(/\s+/);
@@ -64,14 +79,16 @@ function getWordCount(string) {
 }
 
 function updateWordCount(e) {
+
     const wordCount = getWordCount(e.target.innerText);
     wordCountDiv.innerText = wordCount;
     localStorage.setItem('savedWordCount', wordCount);
-
+    //localStorage.setItem('totalWordCount', totalWordCount);
+    
     if (wordCount >= savedGoal) {
-        // only increase streak if the saved date was yesterday!
         let today = new Date();
         let prevStreakObject = JSON.parse(localStorage.getItem('streak'));
+        // only increase streak if the saved date was yesterday, or if a streak obj doesn't already exist!
         if (!prevStreakObject || prevStreakObject.date + 1 === today) {
             console.log("streak increased!")
             streakCount++; 
@@ -81,7 +98,6 @@ function updateWordCount(e) {
             }
             localStorage.setItem('streak', JSON.stringify(newStreakObject));
         }
-
         if (!soundOption.checked) return;
         if (!playedOnce) {
             var fanfare = new Audio('sounds/eb_fanfare.wav');

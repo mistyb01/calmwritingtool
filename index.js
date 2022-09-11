@@ -5,18 +5,19 @@ textEditor.addEventListener('input', updateWordCount);
 textEditor.addEventListener('input', saveText);
 textEditor.addEventListener('input', playSound);
 
-const wordCountDiv = document.querySelector('.wordcount');
-
 const savedText = localStorage.getItem('savedText') || '';
-const savedWordCount = localStorage.getItem('savedWordCount') || 0;
+const savedWordCount = parseInt(localStorage.getItem('savedWordCount')) || 0;
+let totalWordCount = parseInt(localStorage.getItem('totalWordCount')) || savedWordCount;
+let previousWordCount = savedWordCount;
+const wordCountDiv = document.querySelector('.wordcount');
 
 let savedGoal = parseInt(localStorage.getItem('savedGoal')) || 0;
 let prevStreakData = JSON.parse(localStorage.getItem('streak')) || '';
 let streakCount = prevStreakData.count || 0;
-let totalWordCount = parseInt(localStorage.getItem('totalWordCount')) || 0;
 
 const dailyGoalInput = document.querySelector('#dailygoal');
 dailyGoalInput.addEventListener('change', updateDailyGoal);
+const dailyGoalText = document.querySelector('.dailygoaltext');
 
 const settingsHeader = document.querySelector('.settings-header');
 settingsHeader.addEventListener('click', toggleSettings);
@@ -27,7 +28,6 @@ showWordCountOption.addEventListener('change', toggleWordCount);
 
 const counterWrapper = document.querySelector('.counter-wrapper');
 
-const dailyGoalText = document.querySelector('.dailygoaltext');
 //const totalWordCountText = document.querySelector('.totalWords');
 
 let showSettings = false;
@@ -41,11 +41,10 @@ if (localStorage.getItem('savedGoal')) {
     dailyGoalInput.value = savedGoal;
 }
 
-updateStreak();
+updateStreakText();
 
 
 //// saving stuff with the file system api
-
 
 document.querySelector('#saveBtn').onclick = async () => {
     const options = {
@@ -59,7 +58,6 @@ document.querySelector('#saveBtn').onclick = async () => {
         ],
       };
       
-    
     let fileHandle = await window.showSaveFilePicker(options);
     let stream = await fileHandle.createWritable();
     await stream.write(textEditor.innerText);
@@ -79,25 +77,19 @@ function getWordCount(string) {
 }
 
 function updateWordCount(e) {
-
-    const wordCount = getWordCount(e.target.innerText);
+    const wordCount = parseInt(getWordCount(e.target.innerText));
     wordCountDiv.innerText = wordCount;
     localStorage.setItem('savedWordCount', wordCount);
-    //localStorage.setItem('totalWordCount', totalWordCount);
+
+    if (wordCount > previousWordCount) {
+        totalWordCount += (wordCount - previousWordCount);
+        console.log(totalWordCount);
+        localStorage.setItem('totalWordCount', totalWordCount);
+    }
+    previousWordCount = wordCount;
     
     if (wordCount >= savedGoal) {
-        let today = new Date();
-        let prevStreakObject = JSON.parse(localStorage.getItem('streak'));
-        // only increase streak if the saved date was yesterday, or if a streak obj doesn't already exist!
-        if (!prevStreakObject || prevStreakObject.date + 1 === today) {
-            console.log("streak increased!")
-            streakCount++; 
-            let newStreakObject = {
-                count: streakCount,
-                date: new Date()
-            }
-            localStorage.setItem('streak', JSON.stringify(newStreakObject));
-        }
+        updateStreak();
         if (!soundOption.checked) return;
         if (!playedOnce) {
             var fanfare = new Audio('sounds/eb_fanfare.wav');
@@ -126,6 +118,26 @@ function updateDailyGoal(e) {
 }
 
 function updateStreak() {
+    let today = new Date();
+    let prevStreakObject = JSON.parse(localStorage.getItem('streak'));
+    // only increase streak if the saved date was yesterday, or if a streak obj doesn't already exist!
+    if (!prevStreakObject || prevStreakObject.date + 1 === today) {
+        console.log("streak increased!")
+        streakCount++; 
+        let newStreakObject = {
+            count: streakCount,
+            date: new Date()
+        }
+        localStorage.setItem('streak', JSON.stringify(newStreakObject));
+    }
+    // reset streak
+    if (prevStreakObject.date + 1 != today) {
+        streakCount = 0;
+        localStorage.setItem('streak', '');
+    }
+}
+
+function updateStreakText() {
     const streakText = document.querySelector('.streakText');
     streakText.innerText = "streak: " + streakCount;
 }

@@ -18,26 +18,31 @@
 
 3. STREAKS
 
-   - [ ] if user meets goal, the 'streak count' is updated and shown on ui! ('your streak is 1!')
-   - [ ] streak can only increment once a day. this can be done by storing a separate variable in localStorage, that stores the date the streak was last recorded. if today's date != the streak date, the streak increases.
-   - [ ] streak is lost if it's been two days since the value was updated.
+   - [x] if user meets goal, the 'streak count' is updated and shown on ui! ('your streak is 1!')
+   - [x] streak can only increment once a day. this can be done by storing a separate variable in localStorage, that stores the date the streak was last recorded. if today's date != the streak date, the streak increases.
+   - [x] streak is lost if it's been two days since the value was updated.
 
 4. MVP is complete at this point! here are extra features:
+
    - [ ] user can select between preset themes
-   - [ ] user can fine- [ ]tune the colors of the theme
-   - [ ] fullscreen option
-   - [ ] user can export their writing as a .txt, or another format
-   - [ ] stats tab with data like: total words written, max streak, average words per day, average time it takes to reach goal
+   - [ ] user can fine-tune the colors of the theme
+   - [ ] fullscreen button
+   - [x] user can export their writing as a .txt, or another format
    - [x] typing ticks
-   - [ ] prompts?? (though thats a whole other thing..)
    - [ ] 'challenge modes'? like, set a timer and see how many words you can write! modes to help people get started.
-   - [ ] option for goal to be time spent writing if not wordcount?
    - [ ] make an appealing visual for the streaks
    - [ ] when the wordcount is reached, a cute congratulation of some kind. a fanfare or visual effect.
    - [ ] a cute little mascot cheering on the writer (but not distracting them hopefully..)
    - [ ] embedded dictionary/thesaurus tools
    - [ ] voice-to-text tool
    - [ ] think about ways to make the process of accumulated wordcount or streak more satisfying. for example, the words can be represented as something tiny, but adds up--like drops of water in a glass. the wordcount can be represented as a book! and the book can get taller over time! (a certain number of words = a page)
+
+5. Extra stats to track
+   - [ ] total words written
+   - [ ] max streak
+   - [ ] average words per day
+   - [ ] average time it takes to reach goal
+   - [ ] average words per minute
 
 ## undecided stuff: data persistance...
 
